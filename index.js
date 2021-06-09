@@ -1,9 +1,9 @@
 const axios = require('axios');
-const config = require('config');
 const dateformat = require('dateformat');
 const schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
+require('dotenv').config()
 var count= 1
 let prevStateKanpur = [0,0]
 let prevStateMbd = [0,0]
@@ -50,8 +50,8 @@ async function mailing(data) {
       service: 'gmail',
       host: 'smtp.gmail.com',
       auth: {
-        user: config.get('email'),
-        pass: config.get('password'),
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     })
   );
@@ -97,13 +97,14 @@ async function mailing(data) {
 }
 
 const fetchResponse = async () => {
-  prevStateKanpur = await getStates('725', dateformat(new Date(), 'dd-mm-yyyy'), prevStateKanpur);
+  prevStateKanpur = await getStates('664', dateformat(new Date(), 'dd-mm-yyyy'), prevStateKanpur);
   prevStateMbd = await getStates('678', dateformat(new Date(), 'dd-mm-yyyy'), prevStateMbd);
   prevStateAgra = await getStates('622', dateformat(new Date(), 'dd-mm-yyyy'), prevStateAgra);
 };
-const job = schedule.scheduleJob('0 * * * * *', () => {
-  fetchResponse();
-  console.log(`${count++} call`)
-});
+// const job = schedule.scheduleJob('0 * * * * *', () => {
+//   fetchResponse();
+//   console.log(`${count++} call`)
+// });
 
+fetchResponse()
 
