@@ -16,6 +16,7 @@ const getStates = async (district, currentDate) => {
           "Content-Type": "application/x-www-form-urlencoded",
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
         },
       }
     );
