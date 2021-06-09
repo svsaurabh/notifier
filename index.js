@@ -13,6 +13,7 @@ const getStates = async (district, currentDate) => {
       {
         httpsAgent: agent,
         headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': '*',
         },
