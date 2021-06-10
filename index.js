@@ -18,11 +18,6 @@ const getStates = async (district, currentDate) => {
       },
     }).then((response) => {
       console.log(response.data.states);
-      // let data = response.data.sessions;
-      // data = data.filter((center) => {
-      //   return center.available_capacity_dose1 > 0 ? true : false;
-      // });
-      // console.log(data.length);
     });
   } catch (err) {
     console.log('Error :', err);
