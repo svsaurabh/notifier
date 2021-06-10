@@ -100,9 +100,9 @@ async function mailing(data) {
     let info = await transporter.sendMail({
       from: {
         name: 'Notifier',
-        address: 'hritzz12345@gmail.com',
+        address: process.env.EMAIL,
       },
-      to: ['i10shivansh@gmail.com'],
+      to: ['svsaurabh97@gmail.com'],
       subject: `${data[0].district_name} ${data[0].state_name} Available Slots ${data[0].min_age_limit}+`,
       text: generatetext(),
     });
