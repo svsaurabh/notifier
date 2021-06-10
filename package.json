@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dateformat": "^4.5.1",
+    "free-proxy": "^0.1.6",
     "got": "^11.8.2",
     "node-schedule": "^2.0.0",
     "node-telegram-bot-api": "^0.53.0"
