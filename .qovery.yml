@@ -1,0 +1,11 @@
+---
+application:
+  name: "notifier"
+  project: "test"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-notifier"
+  routes:
+  - application_name: "notifier"
+    paths:
+    - "/*"
