@@ -9,7 +9,6 @@ let prevStateKanpur = [0, 0];
 let prevStateMbd = [0, 0];
 let prevStateAgra = [0, 0];
 
-
 const getStates = async (district, currentDate, prevState) => {
   try {
     axios({
@@ -60,7 +59,6 @@ const changeState = (state, data) => {
   mailing(data);
   return val;
 };
-
 
 async function mailing(data) {
   let transporter = nodemailer.createTransport(
@@ -124,9 +122,7 @@ const fetchResponse = async () => {
   prevStateMbd = await getStates('678', dateformat(new Date(), 'dd-mm-yyyy'), prevStateMbd);
   prevStateAgra = await getStates('622', dateformat(new Date(), 'dd-mm-yyyy'), prevStateAgra);
 };
-// const job = schedule.scheduleJob('0 * * * * *', () => {
-//   fetchResponse();
-//   console.log(`${count++} call`)
-// });
-
-fetchResponse();
+const job = schedule.scheduleJob('0 * * * * *', () => {
+  fetchResponse();
+  console.log(`${count++} call`);
+});
