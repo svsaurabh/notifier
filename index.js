@@ -53,7 +53,7 @@ const changeState = (state, data) => {
       `changed from ${val} to ${data.length}`
   );
   val = data.length;
-  mailing(data);
+  // mailing(data);
   return val;
 };
 
@@ -117,9 +117,7 @@ const fetchResponse = async () => {
   prevStateMbd = await getStates('678', dateformat(new Date(), 'dd-mm-yyyy'), prevStateMbd);
   prevStateAgra = await getStates('622', dateformat(new Date(), 'dd-mm-yyyy'), prevStateAgra);
 };
-// const job = schedule.scheduleJob('0 * * * * *', () => {
-//   fetchResponse();
-//   console.log(`${count++} call`)
-// });
-
-fetchResponse();
+const job = schedule.scheduleJob('0 * * * * *', () => {
+  fetchResponse();
+  console.log(`${count++} call`)
+});
