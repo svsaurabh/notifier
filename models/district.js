@@ -22,6 +22,14 @@ const districtSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  telegram_channel_name: {
+    type: String,
+    default: null,
+  },
+  telegram_channel_id: {
+    type: String,
+    default: null,
+  },
 });
 
 module.exports = District = mongoose.model('district', districtSchema);
