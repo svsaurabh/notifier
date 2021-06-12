@@ -52,7 +52,7 @@ const main = async () => {
         let data = new District({
           district_id: district.district_id,
           district_name: district.district_name,
-          state_id: state._id,
+          state_id: state,
         });
         data.save();
       }
