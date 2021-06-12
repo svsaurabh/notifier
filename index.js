@@ -4,11 +4,9 @@ const schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 require('dotenv').config();
+const notificationList = require('./utilities/notificationList');
 var count = 1;
-let prevStateKanpur = [0, 0];
-let prevStateMbd = [0, 0];
-let prevStateAgra = [0, 0];
-
+let executionDistrict = {};
 const getStates = async (district, currentDate, prevState) => {
   try {
     axios({
@@ -56,11 +54,11 @@ const changeState = (state, data) => {
       `changed from ${val} to ${data.length}`
   );
   val = data.length;
-  mailing(data);
+  // mailing(data);
   return val;
 };
 
-async function mailing(data) {
+const mailing = async (data) => {
   let transporter = nodemailer.createTransport(
     smtpTransport({
       service: 'gmail',
@@ -107,7 +105,11 @@ async function mailing(data) {
         name: 'Notifier',
         address: process.env.EMAIL,
       },
+<<<<<<< HEAD
       to: ['svsaurabh97@gmail.com'],
+=======
+      to: ['i10shivansh@gmail.com', 'svsaurabh97@gmail.com'],
+>>>>>>> origin/shivansh-dev
       subject: `${data[0].district_name} ${data[0].state_name} Available Slots ${data[0].min_age_limit}+`,
       text: generatetext(),
     });
@@ -115,14 +117,28 @@ async function mailing(data) {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 const fetchResponse = async () => {
-  prevStateKanpur = await getStates('664', dateformat(new Date(), 'dd-mm-yyyy'), prevStateKanpur);
-  prevStateMbd = await getStates('678', dateformat(new Date(), 'dd-mm-yyyy'), prevStateMbd);
-  prevStateAgra = await getStates('622', dateformat(new Date(), 'dd-mm-yyyy'), prevStateAgra);
+  try {
+    for (const execution of executionDistrict) {
+      await getStates(execution.district_id, dateformat(new Date(), 'dd-mm-yyyy'), [0, 0]);
+    }
+  } catch (err) {
+    console.log('No data available');
+  }
 };
+<<<<<<< HEAD
 const job = schedule.scheduleJob('0 * * * * *', () => {
   fetchResponse();
   console.log(`${count++} call`);
 });
+=======
+schedule.scheduleJob('0 * * * * *', () => {
+  fetchResponse();
+  console.log(`${count++} call`);
+});
+schedule.scheduleJob('30 0/5 * * * *', async () => {
+  executionDistrict = await notificationList.getDistrictList();
+});
+>>>>>>> origin/shivansh-dev
